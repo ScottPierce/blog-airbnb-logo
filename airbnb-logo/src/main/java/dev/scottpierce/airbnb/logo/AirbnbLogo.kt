@@ -1,5 +1,7 @@
 package dev.scottpierce.airbnb.logo
 
+import androidx.compose.animation.core.EaseInQuad
+import androidx.compose.animation.core.EaseOutQuad
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -19,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import kotlinx.coroutines.delay
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -45,20 +48,20 @@ fun MultiColorAirbnbLogo(
         AirbnbLogo(
             modifier = Modifier.fillMaxSize(),
         )
-        AirbnbLogo(
-            modifier = Modifier.fillMaxSize(),
-            color = AirbnbLogo.COLOR_BABU,
-            delayMillis = 500,
-        )
-        AirbnbLogo(
-            modifier = Modifier.fillMaxSize(),
-            color = AirbnbLogo.COLOR_FOGGY,
-            delayMillis = 800,
-        )
-        AirbnbLogo(
-            modifier = Modifier.fillMaxSize(),
-            delayMillis = 1200,
-        )
+//        AirbnbLogo(
+//            modifier = Modifier.fillMaxSize(),
+//            color = AirbnbLogo.COLOR_BABU,
+//            delayMillis = 500,
+//        )
+//        AirbnbLogo(
+//            modifier = Modifier.fillMaxSize(),
+//            color = AirbnbLogo.COLOR_FOGGY,
+//            delayMillis = 800,
+//        )
+//        AirbnbLogo(
+//            modifier = Modifier.fillMaxSize(),
+//            delayMillis = 1200,
+//        )
     }
 }
 
@@ -72,11 +75,12 @@ fun AirbnbLogo(
 
     val drawPercent: Float by animateFloatAsState(
         targetValue = targetDrawPercent,
-        animationSpec = tween(1500, easing = LinearEasing, delayMillis = delayMillis),
+        animationSpec = tween(1200, easing = EaseOutQuad, delayMillis = delayMillis),
         label = "Draw Percent",
     )
 
     LaunchedEffect(Unit) {
+        delay(300)
         // Trigger the animation to 1f
         targetDrawPercent = 1f
     }
@@ -173,7 +177,7 @@ private fun svgCommandsToPath(
         }
     }
 
-    println("Distance Drawn $distanceDrawn")
+//    println("Distance Drawn $distanceDrawn")
 
     return path
 }
