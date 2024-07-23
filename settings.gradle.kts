@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "airbnb-logo"
+rootProject.name = "blog-airbnb-logo"
 
 include(":sample")
 include(":airbnb-logo")

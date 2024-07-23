@@ -76,8 +76,13 @@ private fun svgCommandsToPath(
     // Start at the location right before the first command
     path.moveTo(lastNode.p.x * xScale, lastNode.p.y * yScale)
 
-    for (i in 1 ..< nodes.size) {
-        val node = nodes[i]
+    for (i in 1 ..< (nodes.size + 1)) {
+        val node: VectorNode = if (i == nodes.size) {
+            // Finish the logo by ending with the first node
+            nodes[0]
+        } else {
+            nodes[i]
+        }
 
 //        val commandDistance = calculateDistance(lastNode, node)
         val commandDistance = 0f
@@ -103,7 +108,7 @@ private fun svgCommandsToPath(
                 end.x * xScale, end.y * yScale,
             )
         } else {
-            path.cubicBezierSegment(
+            path.partialCubicBezier(
                 Offset(lastNode.p.x * xScale, lastNode.p.y * yScale),
                 Offset(c1.x * xScale, c2.y * yScale),
                 Offset(c2.x * xScale, c2.y * yScale),
@@ -135,7 +140,8 @@ private fun calculateDistance(node1: VectorNode, node2: VectorNode): Float {
     return sqrt((node2.p.x - node1.p.x).pow(2) + (node2.p.y - node1.p.x).pow(2))
 }
 
-private fun Path.cubicBezierSegment(
+@Suppress("LocalVariableName")
+private fun Path.partialCubicBezier(
     start: Offset,
     c1: Offset,
     c2: Offset,
@@ -143,20 +149,20 @@ private fun Path.cubicBezierSegment(
     drawPercent: Float
 ) {
     // Calculate intermediate points using De Casteljau's algorithm
-    val calculatedControl1 = linearInterpolation(start, c1, drawPercent)
-    val P1_1 = linearInterpolation(c1, c2, drawPercent)
-    val P2_1 = linearInterpolation(c2, end, drawPercent)
+    val partialControl1 = linearInterpolation(start, c1, drawPercent)
+    val p1_1 = linearInterpolation(c1, c2, drawPercent)
+    val p2_1 = linearInterpolation(c2, end, drawPercent)
 
-    val calculatedControl2 = linearInterpolation(calculatedControl1, P1_1, drawPercent)
-    val P1_2 = linearInterpolation(P1_1, P2_1, drawPercent)
+    val partialControl2 = linearInterpolation(partialControl1, p1_1, drawPercent)
+    val p1_2 = linearInterpolation(p1_1, p2_1, drawPercent)
 
-    val calculatedEnd = linearInterpolation(calculatedControl2, P1_2, drawPercent)
+    val partialEnd = linearInterpolation(partialControl2, p1_2, drawPercent)
 
     // Draw the cubic Bézier curve segment
     cubicTo(
-        calculatedControl1.x, calculatedControl1.y,
-        calculatedControl2.x, calculatedControl2.y,
-        calculatedEnd.x, calculatedEnd.y,
+        partialControl1.x, partialControl1.y,
+        partialControl2.x, partialControl2.y,
+        partialEnd.x, partialEnd.y,
     )
 }
 
