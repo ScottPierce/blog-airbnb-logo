@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.scottpierce.airbnb.logo.AirbnbLogo
+import dev.scottpierce.airbnb.logo.MultiColorAirbnbLogo
 import dev.scottpierce.airbnb.sample.ui.theme.AirbnbLogoSampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        AirbnbLogo(
+                        MultiColorAirbnbLogo(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(horizontal = 24.dp),

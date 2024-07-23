@@ -4,6 +4,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -27,19 +28,57 @@ private const val LOGO_VECTOR_HEIGHT: Float = 2143.2f
 private const val LOGO_TOTAL_DISTANCE: Float = 8574.666f // Calculated by the distance algorithm
 private const val STROKE_WIDTH: Float = 140f
 
+object AirbnbLogo {
+    val COLOR_RAUSCH = Color(0xFFFF5A5F)
+    val COLOR_BABU = Color(0xFF00A699)
+    val COLOR_ARCHES = Color(0xFFFC642D)
+    val COLOR_HOF = Color(0xFF484848)
+    val COLOR_FOGGY = Color(0xFF767676)
+}
+
+@Composable
+fun MultiColorAirbnbLogo(
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+    ) {
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            color = AirbnbLogo.COLOR_BABU,
+            delayMillis = 500,
+        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            color = AirbnbLogo.COLOR_FOGGY,
+            delayMillis = 800,
+        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            delayMillis = 1200,
+        )
+    }
+}
+
 @Composable
 fun AirbnbLogo(
     modifier: Modifier = Modifier,
+    color: Color = AirbnbLogo.COLOR_RAUSCH,
+    delayMillis: Int = 0,
 ) {
     var targetDrawPercent: Float by remember { mutableFloatStateOf(0f) }
 
     val drawPercent: Float by animateFloatAsState(
         targetValue = targetDrawPercent,
-        animationSpec = tween(2000, easing = LinearEasing),
+        animationSpec = tween(2000, easing = LinearEasing, delayMillis = delayMillis),
         label = "Draw Percent",
     )
 
     LaunchedEffect(Unit) {
+        // Trigger the animation to 1f
         targetDrawPercent = 1f
     }
 
@@ -48,7 +87,7 @@ fun AirbnbLogo(
             .fillMaxSize()
             .aspectRatio(LOGO_VECTOR_WIDTH / LOGO_VECTOR_HEIGHT)
     ) {
-        drawSvg(Color(0xFFE0565B), drawPercent)
+        drawSvg(color, drawPercent)
     }
 }
 
@@ -134,7 +173,6 @@ internal fun svgCommandsToPath(
         path.close()
     }
 
-    println("Total path distance: $distanceDrawn")
     return path
 }
 
