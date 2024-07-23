@@ -1,5 +1,6 @@
 package dev.scottpierce.airbnb.logo
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -23,7 +24,7 @@ import kotlin.math.sqrt
 
 private const val LOGO_VECTOR_WIDTH: Float = 1991.3f
 private const val LOGO_VECTOR_HEIGHT: Float = 2143.2f
-private const val LOGO_TOTAL_DISTANCE: Float = 23636.26f // Calculated by the distance algorithm
+private const val LOGO_TOTAL_DISTANCE: Float = 8574.666f // Calculated by the distance algorithm
 private const val STROKE_WIDTH: Float = 140f
 
 @Composable
@@ -34,7 +35,7 @@ fun AirbnbLogo(
 
     val drawPercent: Float by animateFloatAsState(
         targetValue = targetDrawPercent,
-        animationSpec = tween(20000),
+        animationSpec = tween(2000, easing = LinearEasing),
         label = "Draw Percent",
     )
 
@@ -113,7 +114,7 @@ internal fun svgCommandsToPath(
         } else {
             path.partialCubicBezier(
                 Offset(lastNode.p.x * xScale, lastNode.p.y * yScale),
-                Offset(c1.x * xScale, c2.y * yScale),
+                Offset(c1.x * xScale, c1.y * yScale),
                 Offset(c2.x * xScale, c2.y * yScale),
                 Offset(end.x * xScale, end.y * yScale),
                 commandDrawPercent,
@@ -140,7 +141,7 @@ internal fun svgCommandsToPath(
 private fun calculateDistance(node1: VectorNode, node2: VectorNode): Float {
     // We could calculate the distance of a cubic Bezier curve, and a quadratic Bezier curve, a
     // simple magnitude calculation on the start and end points should be sufficient.
-    return sqrt((node2.p.x - node1.p.x).pow(2) + (node2.p.y - node1.p.x).pow(2))
+    return sqrt((node2.p.x - node1.p.x).pow(2) + (node2.p.y - node1.p.y).pow(2))
 }
 
 @Suppress("LocalVariableName")
