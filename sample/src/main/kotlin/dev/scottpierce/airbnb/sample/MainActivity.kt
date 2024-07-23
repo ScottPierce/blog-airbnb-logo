@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import dev.scottpierce.airbnb.logo.AirbnbLogo
-import dev.scottpierce.airbnb.logo.svg.SvgCanvas
-import dev.scottpierce.airbnb.sample.ui.theme.AirbnblogoTheme
+import dev.scottpierce.airbnb.sample.ui.theme.AirbnbLogoSampleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,12 +20,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            AirbnblogoTheme {
+            AirbnbLogoSampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        SvgCanvas(svg = AirbnbLogo.IMAGE)
+                        AirbnbLogo(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 24.dp),
+                        )
                     }
                 }
             }

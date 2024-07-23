@@ -4,65 +4,32 @@ import dev.scottpierce.airbnb.logo.Point
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.unit.dp
 import dev.scottpierce.airbnb.logo.VectorNode
 import dev.scottpierce.airbnb.logo.VectorNodeImage
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-@Composable
-fun SvgCanvas(
-    svg: VectorNodeImage,
-    modifier: Modifier = Modifier,
-) {
-    var targetDrawPercent: Float by remember { mutableFloatStateOf(0f) }
-
-    val drawPercent: Float by animateFloatAsState(
-        targetValue = targetDrawPercent,
-        animationSpec = tween(2000),
-        label = "Draw Percent",
-    )
-
-    LaunchedEffect(Unit) {
-        targetDrawPercent = 1f
-    }
-
-    Canvas(
-        modifier = modifier.aspectRatio(svg.width / svg.height)
-    ) {
-        drawSvg(svg, drawPercent)
-    }
-}
-
-private fun DrawScope.drawSvg(svg: VectorNodeImage, drawPercent: Float) {
-    val xScale = size.width / svg.width
-    val yScale = size.height / svg.height
-
-    val scaledStrokeWidth = min(xScale, yScale) * svg.strokeWidth
-
-    val path = svgCommandsToPath(
-        xScale = xScale,
-        yScale = yScale,
-        nodes = svg.nodes,
-        distanceToDraw = drawPercent * svg.totalDistance,
-        drawPercent = drawPercent,
-    )
-    drawPath(path, svg.strokeColor, style = Stroke(width = scaledStrokeWidth))
-}
-
-private fun svgCommandsToPath(
+internal fun svgCommandsToPath(
     xScale: Float,
     yScale: Float,
     nodes: List<VectorNode>,
