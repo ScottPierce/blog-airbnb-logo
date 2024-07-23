@@ -21,17 +21,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            AirbnbLogoSampleTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(
-                        modifier = Modifier.padding(innerPadding)
-                    ) {
-                        MultiColorAirbnbLogo(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 24.dp),
-                        )
-                    }
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Box(
+                    modifier = Modifier.padding(innerPadding)
+                ) {
+                    MultiColorAirbnbLogo(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 24.dp),
+                    )
                 }
             }
         }
