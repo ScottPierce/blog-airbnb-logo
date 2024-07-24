@@ -10,7 +10,7 @@ internal enum class DrawSide(
     ),
     RIGHT(
         distance = 2758.3904f,
-        nodes = AIRBNB_LOGO_RIGHT_SIDE,
+        nodes = AIRBNB_LOGO_RIGHT_SIDE.asReversed(),
     ),
 }
 
@@ -213,4 +213,4 @@ internal val AIRBNB_LOGO_RIGHT_SIDE = listOf(
         p = PairPoint(x1 = 1330.3f, y1 = 1952.3f, x2 = 1259.4f, y2 = 2065.8f),
         cp1 = PairPoint(x1 = 1253.1f, y1 = 1909.3f, x2 = 1173.6f, y2 = 2016.5f),
     ),
-).asReversed()
+)
