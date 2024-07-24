@@ -1,5 +1,5 @@
 # blog-airbnb-logo
 
-This repository is for a blog post at [scottpierce.dev](https://scottpierce.dev).
+This repository is for a blog post at [https://scottpierce.dev/posts/animating-the-airbnb-logo/](https://scottpierce.dev/posts/animating-the-airbnb-logo/).
 
-<img src="./content/final.gif" alt="Airbnb Animation" width="320">
+<img src="./content/final.gif" alt="Airbnb Animation" width="300">
