@@ -1,6 +1,6 @@
 package dev.scottpierce.airbnb.logo
 
-import androidx.compose.animation.core.EaseOutQuad
+import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -18,7 +18,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.geometry.isUnspecified
 import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
@@ -59,20 +58,20 @@ fun MultiColorAirbnbLogo(
         AirbnbLogo(
             modifier = Modifier.fillMaxSize(),
         )
-//        AirbnbLogo(
-//            modifier = Modifier.fillMaxSize(),
-//            color = AirbnbLogo.COLOR_BABU,
-//            delayMillis = 500,
-//        )
-//        AirbnbLogo(
-//            modifier = Modifier.fillMaxSize(),
-//            color = AirbnbLogo.COLOR_FOGGY,
-//            delayMillis = 800,
-//        )
-//        AirbnbLogo(
-//            modifier = Modifier.fillMaxSize(),
-//            delayMillis = 1200,
-//        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            color = Color(0xFF6FC8EE),
+            delayMillis = 500,
+        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            color = Color(0xFFF4D45A),
+            delayMillis = 800,
+        )
+        AirbnbLogo(
+            modifier = Modifier.fillMaxSize(),
+            delayMillis = 1200,
+        )
     }
 }
 
@@ -86,7 +85,7 @@ fun AirbnbLogo(
 
     val drawPercent: Float by animateFloatAsState(
         targetValue = targetDrawPercent,
-        animationSpec = tween(1200, easing = EaseOutQuad, delayMillis = delayMillis),
+        animationSpec = tween(1200, easing = EaseOut, delayMillis = delayMillis),
         label = "Draw Percent",
     )
 
@@ -113,7 +112,6 @@ fun DrawScope.drawSvg(color: Color, drawPercent: Float) {
     val yScale = size.height / LOGO_VECTOR_HEIGHT
 
     val scaledStrokeWidth = min(xScale, yScale) * STROKE_WIDTH
-    val pathStyle = Stroke(width = scaledStrokeWidth)
 
     drawIntoCanvas { canvas ->
         drawVectorNodes(
@@ -140,7 +138,7 @@ fun DrawScope.drawSvg(color: Color, drawPercent: Float) {
 
 private const val FADE_DISTANCE = 100f
 
-private fun DrawScope.drawVectorNodes(
+private fun drawVectorNodes(
     canvas: Canvas,
     xScale: Float,
     yScale: Float,
@@ -192,7 +190,6 @@ private fun DrawScope.drawVectorNodes(
         // except at the very end of the Path.
         var fadeDrawPercent: Float? = null
         val distanceLeftToDraw = side.distance - distanceDrawn - (nodeDistance * nodeDrawPercent)
-        println("Distance left to draw $distanceLeftToDraw")
         val fadeDistance = FADE_DISTANCE.coerceAtMost(distanceLeftToDraw)
         if (nodeDistance >= (distanceToDraw - fadeDistance - distanceDrawn)) {
             fadeDrawPercent = ((distanceToDraw - fadeDistance - distanceDrawn) / nodeDistance)
@@ -250,7 +247,7 @@ private fun DrawScope.drawVectorNodes(
 
     canvas.drawPath(path = path, paint)
 
-    println("Draw Distance for ${side.name} was $distanceDrawn")
+    //println("Draw Distance for ${side.name} was $distanceDrawn")
 
     // Draw the fade at the end of the stroke
     if (
