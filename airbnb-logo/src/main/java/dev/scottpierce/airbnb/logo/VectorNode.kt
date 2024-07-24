@@ -1,9 +1,16 @@
 package dev.scottpierce.airbnb.logo
 
 internal data class VectorNode(
-    val p2: Point,
+    /** The first control point for the node */
+    val cp1: Point,
+    /** The second control point for the node */
+    val cp2: Point,
+    /** The end point we are drawing to for the node */
     val p: Point,
-    val p1: Point,
+    /**
+     * If true this is a point that will be drawn on again.
+     */
+    val isIntersection: Boolean = false,
 )
 
 interface Point {
