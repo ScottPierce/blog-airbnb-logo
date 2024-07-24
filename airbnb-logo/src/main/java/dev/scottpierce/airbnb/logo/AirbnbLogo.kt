@@ -108,8 +108,6 @@ fun AirbnbLogo(
     }
 }
 
-private val SAVE_LAYER_PAINT = Paint()
-
 fun DrawScope.drawSvg(color: Color, drawPercent: Float) {
     val xScale = size.width / LOGO_VECTOR_WIDTH
     val yScale = size.height / LOGO_VECTOR_HEIGHT
@@ -262,7 +260,8 @@ private fun DrawScope.drawVectorNodes(
         fadeStartPosition.x != lastDrawnPosition.x &&
         fadeStartPosition.y != lastDrawnPosition.y
     ) {
-        // Extend the line a little bit since
+        // Extend the line a little bit since in curves, the edges of the line can extend beyond the
+        // end point.
         val extendedFadeEndPosition = extendLine(
             a = fadeStartPosition,
             b = lastDrawnPosition,
