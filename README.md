@@ -2,4 +2,4 @@
 
 This repository is for a blog post at [scottpierce.dev](https://scottpierce.dev).
 
-![Airbnb Animation](./content/final.gif)
+<img src="./content/final.gif" alt="Airbnb Animation" width="320">
