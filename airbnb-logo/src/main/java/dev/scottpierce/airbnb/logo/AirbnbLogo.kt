@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.PaintingStyle
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import dev.scottpierce.airbnb.logo.util.LineUtil.calculateDistance
@@ -103,11 +102,11 @@ fun AirbnbLogo(
                 compositingStrategy = CompositingStrategy.Offscreen
             }
     ) {
-        drawSvg(color, drawPercent)
+        drawAirbnbLogo(color, drawPercent)
     }
 }
 
-fun DrawScope.drawSvg(color: Color, drawPercent: Float) {
+private fun DrawScope.drawAirbnbLogo(color: Color, drawPercent: Float) {
     val xScale = size.width / LOGO_VECTOR_WIDTH
     val yScale = size.height / LOGO_VECTOR_HEIGHT
 
